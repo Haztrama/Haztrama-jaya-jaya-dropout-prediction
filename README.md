@@ -20,7 +20,7 @@ Jaya Jaya Institut menghadapi masalah tingginya tingkat perputaran dan kegagalan
 
 ### Sumber Data
 Data yang digunakan dalam proyek ini merupakan dataset *students' performance* yang disediakan oleh Jaya Jaya Institut.
-Tautan Dataset Asli: [Students' Performance Dataset](https://archive.ics.uci.edu/dataset/697/predict+students+dropout+and+academic+success)
+Tautan Dataset Asli: [Students' Performance Dataset](https://github.com/dicodingacademy/dicoding_dataset/blob/main/students_performance/data.csv)
 
 ### Setup Environment
 Untuk menjalankan *notebook* dan aplikasi *machine learning* secara lokal, pastikan Anda telah menginstal semua *library* Python yang dibutuhkan. Anda bisa menginstalnya sekaligus dengan menjalankan perintah berikut di terminal:

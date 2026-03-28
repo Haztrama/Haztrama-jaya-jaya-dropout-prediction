@@ -1,51 +1,64 @@
-# Proyek Akhir: Menyelesaikan Permasalahan Institusi Pendidikan
+# Proyek Akhir Data Science: Menyelesaikan Permasalahan Institusi Pendidikan Jaya Jaya Institut
 
 **Nama:** Hafiz Putra Mahesta  
 **Email:** phafiz726@gmail.com  
 **ID Dicoding:** Hafiz Putra Mahesta  
 
 ## Business Understanding
+Jaya Jaya Institut adalah sebuah institusi pendidikan tinggi yang telah beroperasi sejak tahun 2000 dan memiliki reputasi yang sangat baik. Namun, saat ini institusi sedang menghadapi tantangan internal berupa tingkat mahasiswa yang tidak menyelesaikan pendidikan alias putus kuliah (*dropout*) yang cukup tinggi. Tingginya angka ini berdampak negatif pada performa akademik, citra institusi, dan stabilitas finansial kampus.
 
-**Konteks Masalah:** Jaya Jaya Institut adalah institusi pendidikan yang telah berdiri sejak tahun 2000 dan memiliki reputasi yang baik. Namun, institusi ini menghadapi masalah serius terkait tingginya angka mahasiswa yang tidak menyelesaikan pendidikan alias putus kuliah (*dropout*). Tingginya angka *dropout* ini berdampak negatif pada performa dan reputasi institusi.
+Proyek ini bertujuan untuk menganalisis faktor-faktor penyebab tingginya angka *dropout* dan membangun model *machine learning* untuk memprediksi mahasiswa mana yang memiliki potensi tinggi untuk putus kuliah, sehingga staf akademik dapat melakukan langkah preventif sedini mungkin.
 
-**Tujuan Proyek:** 1. Mengidentifikasi faktor-faktor utama yang memengaruhi keputusan mahasiswa untuk *dropout*.
-2. Membangun model *Machine Learning* untuk mendeteksi sedini mungkin mahasiswa yang berisiko *dropout*.
-3. Membuat *dashboard* interaktif untuk memonitor performa mahasiswa secara keseluruhan.
+### Permasalahan Bisnis
+Jaya Jaya Institut menghadapi masalah tingginya tingkat perputaran dan kegagalan studi mahasiswa (*dropout*). Tingginya angka putus kuliah ini sangat merugikan institusi karena menunjukkan adanya ketidakmaksimalan dalam sistem pendampingan mahasiswa. Oleh karena itu, institusi membutuhkan sebuah sistem yang dapat melakukan deteksi dini terhadap mahasiswa yang berisiko tinggi untuk *dropout*. Dengan adanya deteksi dini, pihak kampus (seperti dosen pembimbing akademik atau konselor) dapat mengambil tindakan pencegahan, bimbingan khusus, atau bantuan finansial yang lebih terarah sebelum mahasiswa tersebut benar-benar memutuskan untuk berhenti kuliah.
+
+### Cakupan Proyek
+- **Data Preparation:** Membersihkan data, menghapus status mahasiswa yang masih aktif (*Enrolled*) agar fokus pada klasifikasi biner, serta melakukan penyesuaian tipe data agar model *machine learning* menghasilkan prediksi yang akurat.
+- **Exploratory Data Analysis (EDA):** Menganalisis pola data untuk menemukan akar masalah (seperti status pembayaran biaya kuliah dan nilai semester awal) agar manajemen kampus memahami alasan utama di balik tingginya angka *dropout*.
+- **Pembuatan Dashboard:** Menyediakan alat pemantauan visual bagi manajemen kampus untuk memonitor metrik performa mahasiswa secara *real-time* tanpa perlu membaca data mentah.
+- **Modeling & Deployment:** Menciptakan alat prediksi praktis berbasis *web* yang bisa digunakan oleh staf kampus sehari-hari untuk mendeteksi probabilitas *dropout* seorang mahasiswa baru.
+
+### Sumber Data
+Data yang digunakan dalam proyek ini merupakan dataset *students' performance* yang disediakan oleh Jaya Jaya Institut.
+Tautan Dataset Asli: [Students' Performance Dataset](https://archive.ics.uci.edu/dataset/697/predict+students+dropout+and+academic+success)
+
+### Setup Environment
+Untuk menjalankan *notebook* dan aplikasi *machine learning* secara lokal, pastikan Anda telah menginstal semua *library* Python yang dibutuhkan. Anda bisa menginstalnya sekaligus dengan menjalankan perintah berikut di terminal:
+```bash
+pip install -r requirements.txt
+```
+## Business Dashboard
+Dashboard bisnis telah dibuat menggunakan Metabase yang terhubung dengan database SQLite (jaya_jaya_institut.db). Dashboard ini memuat visualisasi kunci untuk membantu institusi mengidentifikasi pola dropout mahasiswa:
+1. Persentase Status Mahasiswa (Pie Chart): Melihat proporsi status Graduate, Dropout, dan Enrolled.
+2. Status vs Pembayaran UKT (Stacked Bar Chart): Analisis hubungan antara tunggakan biaya kuliah dengan probabilitas dropout.
+3. Rata-rata Nilai Semester 1 (Bar Chart): Mengidentifikasi pengaruh performa akademik di awal perkuliahan terhadap keberhasilan studi.
+4. Pengaruh Beasiswa terhadap Status (Stacked Bar Chart): Menganalisis bagaimana kepemilikan beasiswa berdampak pada tingkat retensi dan menekan probabilitas *dropout* mahasiswa.
+
+Catatan untuk Reviewer: File metabase.db.mv.db telah dilampirkan dalam repositori/ZIP ini.
+- Email Login: root@mail.com
+- Password: root123
+
+## Menjalankan Sistem Machine Learning
+Model prediksi dikemas dalam bentuk prototipe web menggunakan antarmuka Streamlit.
+
+Akses Langsung via Cloud:
+Aplikasi telah di-deploy dan dapat diakses langsung melalui tautan berikut:
+https://jayajaya-student-monitoring.streamlit.app/
+
+Cara Menjalankan Secara Lokal:
+1. Buka terminal/PowerShell dan arahkan ke direktori proyek.
+2. Jalankan perintah berikut:
+```bash
+streamlit run app.py
+```
+3. Aplikasi akan terbuka secara otomatis di browser (biasanya di http://localhost:8501). Masukkan data parameter mahasiswa pada form yang tersedia untuk melihat prediksi apakah mahasiswa tersebut aman atau berisiko dropout.
 
 ## Conclusion
+- Menjawab Permasalahan Bisnis: Sistem deteksi dini dropout mahasiswa telah berhasil dibangun. Pihak institusi kini memiliki alat prediksi (dashboard dan web app) yang dapat mengidentifikasi mahasiswa berisiko tinggi, sehingga intervensi berupa konseling atau bantuan finansial dapat diberikan lebih awal.
+- Faktor Utama Dropout: Berdasarkan analisis EDA dan Feature Importance, mahasiswa yang menunggak biaya kuliah (Tuition fees up to date = 0) dan memiliki nilai yang sangat rendah atau 0 pada semester pertama (Curricular units 1st sem grade) memiliki kecenderungan paling tinggi untuk putus kuliah.
+- Performa Model: Model Random Forest Classifier berhasil dikembangkan dengan performa yang sangat baik, terutama pada metrik Recall untuk kelas Dropout, sehingga sangat andal untuk digunakan sebagai jaring pengaman deteksi dini.
 
-Berdasarkan hasil *Exploratory Data Analysis* (EDA) dan pemodelan *Machine Learning* (menggunakan algoritma *Random Forest*), dapat ditarik beberapa kesimpulan utama:
-1. **Faktor Finansial Sangat Krusial:** Mahasiswa yang menunggak biaya kuliah (UKT tidak *up-to-date*) memiliki tingkat *dropout* yang sangat ekstrem dibandingkan mahasiswa yang melunasi biaya kuliah. 
-2. **Performa Akademik Awal Menentukan:** Mahasiswa yang berakhir *dropout* rata-rata memiliki nilai yang jauh lebih rendah (atau bahkan 0) pada evaluasi Semester 1, mengindikasikan bahwa mereka sudah pasif atau kesulitan beradaptasi sejak awal perkuliahan.
-3. **Model Prediksi Berhasil Dibangun:** Model *Random Forest Classifier* telah berhasil dilatih dan mampu mengklasifikasikan mahasiswa berisiko *dropout* dengan tingkat *Recall* yang sangat baik, sehingga sangat cocok digunakan sebagai sistem deteksi dini.
-
-## Recomendation Action Items
-
-Untuk menekan angka *dropout*, berikut adalah rekomendasi tindakan (*Action Items*) bagi manajemen Jaya Jaya Institut:
-1. **Intervensi Finansial Dini:** Memberikan peringatan dini dan menawarkan opsi keringanan pembayaran (cicilan) atau program beasiswa khusus bagi mahasiswa yang mulai terdeteksi menunggak biaya kuliah di semester pertama.
-2. **Program Bimbingan Akademik Wajib:** Mewajibkan sesi bimbingan konseling akademik bagi mahasiswa yang memiliki nilai di bawah standar pada ujian pertengahan Semester 1.
-3. **Pemanfaatan Sistem Prediksi:** Mengintegrasikan *prototype Machine Learning* ini ke dalam sistem informasi akademik kampus agar staf akademik mendapatkan notifikasi otomatis ("Merah/Berisiko Dropout") saat profil mahasiswa baru memenuhi kriteria risiko tinggi.
-
-## Tautan Proyek
-
-- **Streamlit Prototype (Live):** [https://jayajaya-student-monitoring.streamlit.app/](https://jayajaya-student-monitoring.streamlit.app/)
-- **Metabase Dashboard:** File `metabase.db.mv.db` telah disertakan dalam submission ini.
-  - *Email Login:* `root@mail.com`
-  - *Password Login:* `root123`
-
-## Cara Menjalankan Prototype Machine Learning Secara Lokal
-
-Jika ingin menjalankan aplikasi Streamlit ini di komputer lokal, ikuti langkah-langkah berikut:
-
-1. Pastikan Anda telah menginstal Python di komputer.
-2. *Clone* atau ekstrak *repository* / folder proyek ini.
-3. Buka *Command Prompt* atau Terminal, lalu navigasikan ke folder proyek.
-4. Instal semua *library* pendukung dengan menjalankan perintah:
-   ```bash
-   pip install -r requirements.txt
-   ```
-5. Jalankan aplikasi Streamlit dengan perintah:
-   ```bash
-   streamlit run app.py
-   ```
-6. Aplikasi akan terbuka secara otomatis di browser pada alamat http://localhost:8501
+## Rekomendasi Action Items
+1. Intervensi Finansial Dini: Mengingat faktor tunggakan biaya kuliah sangat dominan terhadap dropout, kampus perlu menawarkan opsi restrukturisasi pembayaran (cicilan) atau program beasiswa darurat bagi mahasiswa yang terdeteksi menunggak di semester awal.
+2. Program Mentoring Wajib: Mewajibkan sesi bimbingan konseling akademik intensif bagi mahasiswa yang hasil evaluasi pertengahan Semester 1-nya berada di bawah standar rata-rata.
+3. Pemanfaatan Sistem Prediksi: Meminta staf penerimaan mahasiswa baru dan staf akademik untuk secara rutin memasukkan profil mahasiswa ke dalam sistem prediksi Streamlit yang telah dibuat, agar langkah mitigasi bisa dilakukan bahkan sebelum mahasiswa memulai semester keduanya.
